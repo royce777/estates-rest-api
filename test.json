@@ -1,0 +1,41 @@
+{
+    "name": "Ciao",
+    "ref_id": "RM123",
+    "area": 100,
+    "rooms": 3,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "garden_area": 100,
+    "beds": 3,
+    "location": "Forte dei Marmi",
+    "energy_class": "A",
+    "sea_dist": 1500,
+    "description": [
+        {
+            "lang": "en",
+            "desc": "english desc",
+            "estate_id": 0
+        },
+        { 
+            "lang": "ru",
+            "desc": "russian desc",
+            "estate_id": 0
+        } 
+    ],
+    "features":{
+        "estate_id": 0,
+        "pool": true,
+        "ac": false,
+        "park": true,
+        "alarm": true,
+        "auto_gate": true,
+        "tv": false,
+        "internet": false,
+        "fireplace": false,
+        "bbq": true,
+        "gym": true,
+        "pan_view": true,
+        "sauna": false,
+        "garage": true
+    }
+}
