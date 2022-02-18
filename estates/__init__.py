@@ -3,3 +3,4 @@ from .descriptions_mod import Descriptions
 from .features_mod import ExtraFeatures
 from .fieldscontrol import *
 from .estate_res import Estate
+from .create_model import create_model

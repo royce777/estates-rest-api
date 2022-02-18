@@ -35,6 +35,7 @@ estate_fields= {
     "location": fields.String,
     "energy_class": fields.String,
     "sea_dist": fields.Integer,
+    "listing_type": fields.String,
     "description": fields.List(fields.Nested(description_fields)),
     "features": fields.Nested(features_fields)
 }

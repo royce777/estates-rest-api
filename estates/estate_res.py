@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource, marshal_with, reqparse, abort, inputs
 from estates import EstateModel, Descriptions, ExtraFeatures
-from estates import estate_fields
+from estates import estate_fields, create_model as cm
 from database import db
 import ast
 
@@ -19,35 +19,28 @@ class Estate(Resource):
     @marshal_with(estate_fields)
     def post(self, estate_id):
         main_info = estates_args.parse_args()
-        print(main_info)
+        #print(main_info)
         all_descriptions = main_info['description']
         parsed_descriptions = []
         for descr in all_descriptions:
             description = ast.literal_eval(descr)
             parsed_descriptions.append(description)
 
-        features = features_args.parse_args(req=main_info)
-        print(f"FEATURES ============ {features} ")
+        parsed_features = features_args.parse_args(req=main_info)
+        #print(f"FEATURES ============ {parsed_features} ")
         result = EstateModel.query.filter_by(id=estate_id).first()
         if result :
             abort(409, message="Estate id already exists !")
-        estate = EstateModel(id=estate_id, 
-                            ref_id=main_info['ref_id'],
-                            name=main_info['name'], 
-                            area=main_info['area'],
-                            rooms=main_info['rooms'],
-                            bedrooms=main_info['bedrooms'], 
-                            bathrooms=main_info['bathrooms'],
-                            garden_area=main_info['garden_area'],
-                            beds=main_info['beds'],
-                            location=main_info['location'],
-                            energy_class=main_info['energy_class'],
-                            sea_dist=main_info['sea_dist'])
-        
-        estate.add_props(features, parsed_descriptions)
+        estate = cm.create_model(estate_id,"estate",main_info) 
 
+        features= cm.create_model(estate_id, "features", parsed_features) 
+        description1, description2 = cm.create_model(estate_id, "description", parsed_descriptions)
         db.session.add(estate)
+        db.session.add(description1)
+        db.session.add(description2)
+        db.session.add(features)
         db.session.commit() 
+        estate.add_props(parsed_features, parsed_descriptions)
         return estate, 201 
 
     def delete(self, estate_id):
@@ -67,6 +60,7 @@ estates_args.add_argument("ref_id", type=str, help="Internal reference id", requ
 estates_args.add_argument("location", type=str, help="Location town name", required=True)
 estates_args.add_argument("sea_dist", type=int, help="Distance from the sea", )
 estates_args.add_argument("features", type=dict)
+estates_args.add_argument("listing_type", type=str, help="Type of the listing : rent / sell/ both")
 
 
 descriptions_args = reqparse.RequestParser()

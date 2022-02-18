@@ -15,6 +15,7 @@ class EstateModel(db.Model):
     location = db.Column(db.String(100), nullable=False)
     energy_class = db.Column(db.String(1))
     sea_dist = db.Column(db.Integer)
+    listing_type = db.Column(db.String(10), nullable=False)
 
     def __repr__(self):
         return f"Estate (name = {self.name} , ref_id = {self.ref_id} area = {self.area} , bedr. = {self.bedrooms} , bathr. = {self.bathrooms})"

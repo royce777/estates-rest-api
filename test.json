@@ -10,6 +10,7 @@
     "location": "Forte dei Marmi",
     "energy_class": "A",
     "sea_dist": 1500,
+    "listing_type": "rent",
     "description": [
         {
             "lang": "en",
