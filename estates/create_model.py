@@ -16,7 +16,10 @@ def create_model(estate_id, model: str, parsed_param):
                            sea_dist=parsed_param['sea_dist'],
                            listing_type=parsed_param['listing_type'],
                            build_year=parsed_param['build_year'],
-                           floors=parsed_param['floors'])
+                           floors=parsed_param['floors'],
+                           price=parsed_param['price'],
+                           m_rate=parsed_param['m_rate'],
+                           category=parsed_param['category'])
     elif model == "features":
         return ExtraFeatures(estate_id=estate_id,
                              pool=parsed_param['pool'],

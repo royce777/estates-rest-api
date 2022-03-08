@@ -11,6 +11,11 @@
     "energy_class": "A",
     "sea_dist": 1500,
     "listing_type": "rent",
+    "build_year": 2001,
+    "floors": 2,
+    "price" : 10000,
+    "m_rate": null,
+    "category": "apartment",
     "description": [
         {
             "lang": "en",

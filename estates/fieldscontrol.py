@@ -55,5 +55,8 @@ estate_fields = {
     "floors": fields.Integer,
     "description": fields.List(fields.Nested(description_fields)),
     "features": fields.Nested(features_fields),
-    "images": fields.List(fields.Nested(image_fields))
+    "images": fields.List(fields.Nested(image_fields)),
+    "price": fields.Integer,
+    "m_rate": fields.Integer,
+    "category": fields.String
 }

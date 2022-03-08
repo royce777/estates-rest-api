@@ -18,6 +18,9 @@ class EstateModel(db.Model):
     listing_type = db.Column(db.String(10), nullable=False)
     build_year = db.Column(db.Integer)
     floors = db.Column(db.Integer)
+    price = db.Column(db.Integer)
+    m_rate = db.Column(db.Integer)
+    category = db.Column(db.String, nullable=False)
 
     def __repr__(self):
         return f"Estate (name = {self.name} , ref_id = {self.ref_id} area = {self.area} , bedr. = {self.bedrooms} , bathr. = {self.bathrooms})"
