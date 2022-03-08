@@ -37,6 +37,24 @@
         "gym": true,
         "pan_view": true,
         "sauna": false,
-        "garage": true
-    }
+        "garage": true,
+        "spa": false,
+        "jacuzzi": true,
+        "taverna": false,
+        "video_surv": true,
+        "domotics": true,
+        "terrace": false,
+        "balcony": false,
+        "veranda": true
+    },
+    "images": [
+        {
+            "estate_id": 0,
+            "url" : "img1 url"
+        },
+        {
+            "estate_id": 0,
+            "url" :"img2 url"
+        }
+    ]
 }

@@ -1,0 +1,5 @@
+appartamento
+villa
+bifamiliare
+rustico -> rustic
+casa indipendente -> detached
