@@ -1,0 +1,11 @@
+location
+rooms
+bedrooms
+bathrooms
+beds
+pool
+sea_distance
+listing type
+area
+category
+price

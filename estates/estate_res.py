@@ -1,6 +1,6 @@
 from flask import request
 from flask_restful import Resource, marshal_with, reqparse, abort, inputs
-from estates import EstateModel, Descriptions, ExtraFeatures
+from estates import EstateModel, Descriptions, ExtraFeatures, EstateImages
 from estates import estate_fields, create_model as cm
 from database import db
 import ast
@@ -14,13 +14,15 @@ class Estate(Resource):
         estate_result = EstateModel.query.filter_by(id=estate_id).first()
         description_result = Descriptions.query.filter_by(estate_id=estate_id,
                                                           lang=lang).first()
-        features = ExtraFeatures.query.filter_by(estate_id=estate_id)
+        features = ExtraFeatures.query.filter_by(estate_id=estate_id).all()
+        images = EstateImages.query.filter_by(estate_id=estate_id).all()
         if not estate_result or not description_result or not features:
             abort(
                 404,
                 message=
                 "Estate id or required description or features does not exist! Check DB"
             )
+        estate_result.add_props(features, description_result, images)
         return estate_result
 
     @marshal_with(estate_fields)

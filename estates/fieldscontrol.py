@@ -60,3 +60,5 @@ estate_fields = {
     "m_rate": fields.Integer,
     "category": fields.String
 }
+
+search_res_fields = {"estates": fields.List(fields.Nested(estate_fields))}

@@ -1,6 +1,6 @@
 {
-    "name": "Estate1",
-    "ref_id": "RM123",
+    "name": "Estate2",
+    "ref_id": "RM124",
     "area": 100,
     "rooms": 3,
     "bedrooms": 2,
@@ -20,16 +20,16 @@
         {
             "lang": "en",
             "desc": "english desc",
-            "estate_id": 0
+            "estate_id": 1
         },
         { 
             "lang": "ru",
             "desc": "russian desc",
-            "estate_id": 0
+            "estate_id": 1
         } 
     ],
     "features":{
-        "estate_id": 0,
+        "estate_id": 1,
         "pool": true,
         "ac": false,
         "park": true,
@@ -54,11 +54,11 @@
     },
     "images": [
         {
-            "estate_id": 0,
+            "estate_id": 1,
             "url" : "img1 url"
         },
         {
-            "estate_id": 0,
+            "estate_id": 1,
             "url" :"img2 url"
         }
     ]
