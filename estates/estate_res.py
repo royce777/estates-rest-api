@@ -28,7 +28,6 @@ class Estate(Resource):
     @marshal_with(estate_fields)
     def post(self, estate_id):
         main_info = estates_args.parse_args()
-        # print(main_info)
         # parse description list
         all_descriptions = main_info['description']
         parsed_descriptions = []
@@ -46,24 +45,24 @@ class Estate(Resource):
 
         # parse extra features
         parsed_features = features_args.parse_args(req=main_info)
-        #print(f"FEATURES ============ {parsed_features} ")
-        result = EstateModel.query.filter_by(id=estate_id).first()
-        if result:
-            abort(409, message="Estate id already exists !")
-        estate = cm.create_model(estate_id, "estate", main_info)
-
-        features = cm.create_model(estate_id, "features", parsed_features)
-        description1, description2 = cm.create_model(estate_id, "description",
-                                                     parsed_descriptions)
-        images = cm.create_model(estate_id, "images", parsed_images)
+        estate = cm.create_model(None, "estate", main_info)
         db.session.add(estate)
-        db.session.add(description1)
-        db.session.add(description2)
+        db.session.flush()
+        db.session.refresh(estate)
+
+        features = cm.create_model(estate.id, "features", parsed_features)
+        descriptions = cm.create_model(estate.id, "description",
+                                       parsed_descriptions)
+        images = cm.create_model(estate.id, "images", parsed_images)
+        for descr in descriptions:
+            db.session.add(descr)
+
         db.session.add(features)
+
         for img in images:
             db.session.add(img)
         db.session.commit()
-        estate.add_props(parsed_features, parsed_descriptions, parsed_images)
+        estate.add_props(features, descriptions, images)
         return estate, 201
 
     def delete(self, estate_id):
@@ -143,17 +142,8 @@ descriptions_args.add_argument("desc",
                                help="Estate description",
                                required=True,
                                location='description')
-descriptions_args.add_argument("estate_id",
-                               type=int,
-                               help="Id of the estate",
-                               required=True,
-                               location='description')
 
 features_args = reqparse.RequestParser()
-features_args.add_argument("estate_id",
-                           type=int,
-                           location='features',
-                           required=True)
 features_args.add_argument("pool",
                            type=inputs.boolean,
                            location='features',

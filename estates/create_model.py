@@ -1,7 +1,8 @@
 from estates import EstateModel, ExtraFeatures, Descriptions, EstateImages
 
 
-def create_model(estate_id, model: str, parsed_param):
+def create_model(est_id, model: str, parsed_param):
+    print("Estate id in create model : " + str(est_id))
     if model == "estate":
         return EstateModel(ref_id=parsed_param['ref_id'],
                            name=parsed_param['name'],
@@ -21,7 +22,7 @@ def create_model(estate_id, model: str, parsed_param):
                            m_rate=parsed_param['m_rate'],
                            category=parsed_param['category'])
     elif model == "features":
-        return ExtraFeatures(estate_id=estate_id,
+        return ExtraFeatures(estate_id=est_id,
                              pool=parsed_param['pool'],
                              ac=parsed_param['ac'],
                              park=parsed_param['park'],
@@ -44,20 +45,17 @@ def create_model(estate_id, model: str, parsed_param):
                              balcony=parsed_param['balcony'],
                              veranda=parsed_param['veranda'])
     elif model == "description":
-        # if(len(parsed_param)<2):
-        parsed_d1 = parsed_param[0]
-        parsed_d2 = parsed_param[1]
-        description1 = Descriptions(lang=parsed_d1['lang'],
-                                    desc=parsed_d1['desc'],
-                                    estate_id=estate_id)
-        description2 = Descriptions(lang=parsed_d2['lang'],
-                                    desc=parsed_d1['desc'],
-                                    estate_id=estate_id)
-        return description1, description2
+        descriptions = []
+        for description in parsed_param:
+            parsed_description = Descriptions(lang=description['lang'],
+                                              desc=description['desc'],
+                                              estate_id=est_id)
+            descriptions.append(parsed_description)
+        return descriptions
 
     elif model == 'images':
         image_models = []
         for param in parsed_param:
-            parsed_img = EstateImages(estate_id=estate_id, url=param['url'])
+            parsed_img = EstateImages(estate_id=est_id, url=param['url'])
             image_models.append(parsed_img)
         return image_models
