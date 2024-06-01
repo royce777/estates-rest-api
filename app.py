@@ -4,6 +4,7 @@ from flask_cors import CORS
 from database import db
 from estates import Estate
 from estates import Search
+from auth import Login
 
 app = Flask(__name__)
 api = Api(app)
@@ -16,6 +17,7 @@ db.init_app(app)
 
 api.add_resource(Estate, "/estates/<int:estate_id>")
 api.add_resource(Search, "/search")
+api.add_resource(Login, "/login")
 
 if __name__ == "__main__":
     with app.app_context():
