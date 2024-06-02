@@ -3,6 +3,7 @@ from flask_restful import Resource, marshal_with, reqparse, abort, inputs
 from estates import EstateModel, Descriptions, ExtraFeatures, EstateImages
 from estates import estate_fields, create_model as cm
 from database import db
+from flask_jwt_extended import jwt_required
 import ast
 
 
@@ -26,6 +27,7 @@ class Estate(Resource):
         return estate_result
 
     @marshal_with(estate_fields)
+    @jwt_required()
     def post(self, estate_id):
         main_info = estates_args.parse_args()
         # parse description list

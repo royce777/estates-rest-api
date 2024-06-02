@@ -1,7 +1,6 @@
-from email.mime import image
-from flask import jsonify, request
-from flask_restful import Resource, marshal_with, reqparse, abort, inputs
-from sqlalchemy import and_, desc
+from flask import request
+from flask_restful import Resource, marshal_with
+from sqlalchemy import and_
 from estates import EstateModel, Descriptions, ExtraFeatures, EstateImages, search_res_fields
 
 

@@ -5,13 +5,23 @@ from database import db
 from estates import Estate
 from estates import Search
 from auth import Login
+from flask_jwt_extended import JWTManager
+
 
 app = Flask(__name__)
-api = Api(app)
-CORS(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+app.config['JWT_ACCESS_COOKIE_PATH'] = '/'  # Ensure the path is set correctly
+app.config['JWT_COOKIE_CSRF_PROTECT'] = False  # For simplicity, disable CSRF protection
+app.config['JWT_COOKIE_SECURE'] = False  # Only allow JWT cookies over https
+
+api = Api(app)
+jwt = JWTManager(app)
+CORS(app, with_credentials=True)
+
 
 db.init_app(app)
 
