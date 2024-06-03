@@ -20,7 +20,7 @@ app.config['JWT_COOKIE_SECURE'] = False  # Only allow JWT cookies over https
 
 api = Api(app)
 jwt = JWTManager(app)
-CORS(app, with_credentials=True)
+CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 
 
 db.init_app(app)
