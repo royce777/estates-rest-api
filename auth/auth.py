@@ -19,12 +19,15 @@ class Login(Resource):
             return response
 
         if not user or not check_password_hash(user.password, password):
+            print("Auth failed")
+            if not user:
+                print("user not found!")
             response = make_response(jsonify({'message': 'Wrong credentials'}))
             response.status_code = 401
             return response
 
         access_token = create_access_token(identity=username)
         response = make_response()
-        response.set_cookie('access_token_cookie', access_token, httponly=True)
+        response.set_cookie('access_token_cookie', access_token, httponly=True, samesite='None', secure=True)
         response.status_code = 200
         return response 

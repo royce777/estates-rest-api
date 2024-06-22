@@ -40,6 +40,7 @@ class Estate(Resource):
         # parse newly uploaded images list
 
         all_images = main_info['images']
+        print(main_info)
         parsed_images = []
         for img in all_images:
             image = ast.literal_eval(img)
