@@ -15,7 +15,7 @@ class Estate(Resource):
         estate_result = EstateModel.query.filter_by(id=estate_id).first()
         description_result = Descriptions.query.filter_by(estate_id=estate_id,
                                                           lang=lang).first()
-        features = ExtraFeatures.query.filter_by(estate_id=estate_id).all()
+        features = ExtraFeatures.query.filter_by(estate_id=estate_id).first()
         images = EstateImages.query.filter_by(estate_id=estate_id).all()
         if not estate_result or not description_result or not features:
             abort(
